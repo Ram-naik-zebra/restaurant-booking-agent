@@ -1,0 +1,22 @@
+[
+  { "restaurant_id": "r1", "text": "Lovely date-night spot, quiet enough to actually talk." },
+  { "restaurant_id": "r1", "text": "Tables are spaced out, never feels loud." },
+
+  { "restaurant_id": "r2", "text": "Great food but it's loud, music is always cranked up." },
+  { "restaurant_id": "r2", "text": "Fun atmosphere, very lively and loud on weekends." },
+
+  { "restaurant_id": "r3", "text": "Quiet, candle-lit, perfect for conversation." },
+  { "restaurant_id": "r3", "text": "One of the quiet Italian spots in midtown." },
+
+  { "restaurant_id": "r4", "text": "Used to be great before it shut down temporarily." },
+
+  { "restaurant_id": "r5", "text": "Quiet omakase counter, chef talks you through each piece softly." },
+  { "restaurant_id": "r5", "text": "Peaceful, quiet room, no loud music." },
+
+  { "restaurant_id": "r6", "text": "Loud, bustling sushi spot, great for groups, not for quiet chats." },
+  { "restaurant_id": "r6", "text": "Music is loud and the place is always packed." },
+
+  { "restaurant_id": "r7", "text": "This place permanently closed last year." },
+
+  { "restaurant_id": "r8", "text": "Loud, festive taco spot with live music most nights." }
+]

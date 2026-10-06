@@ -1,0 +1,82 @@
+[
+  {
+    "id": "r1",
+    "name": "Trattoria Rosso",
+    "cuisine": "italian",
+    "neighborhood": "downtown",
+    "price": "$$",
+    "noise": "quiet",
+    "status": "operational",
+    "hours": { "open": "17:00", "close": "22:30" }
+  },
+  {
+    "id": "r2",
+    "name": "Luigi's Corner",
+    "cuisine": "italian",
+    "neighborhood": "downtown",
+    "price": "$$",
+    "noise": "loud",
+    "status": "operational",
+    "hours": { "open": "17:00", "close": "23:00" }
+  },
+  {
+    "id": "r3",
+    "name": "Bella Notte",
+    "cuisine": "italian",
+    "neighborhood": "midtown",
+    "price": "$$$",
+    "noise": "quiet",
+    "status": "operational",
+    "hours": { "open": "17:30", "close": "22:00" }
+  },
+  {
+    "id": "r4",
+    "name": "Pasta Vecchia",
+    "cuisine": "italian",
+    "neighborhood": "downtown",
+    "price": "$",
+    "noise": "quiet",
+    "status": "closed_temporarily",
+    "hours": { "open": "17:00", "close": "22:00" }
+  },
+  {
+    "id": "r5",
+    "name": "Sushi Tomo",
+    "cuisine": "sushi",
+    "neighborhood": "downtown",
+    "price": "$$$",
+    "noise": "quiet",
+    "status": "operational",
+    "hours": { "open": "17:00", "close": "21:30" }
+  },
+  {
+    "id": "r6",
+    "name": "Sakura Roll",
+    "cuisine": "sushi",
+    "neighborhood": "midtown",
+    "price": "$$",
+    "noise": "loud",
+    "status": "operational",
+    "hours": { "open": "11:00", "close": "22:00" }
+  },
+  {
+    "id": "r7",
+    "name": "Old Town Sushi",
+    "cuisine": "sushi",
+    "neighborhood": "downtown",
+    "price": "$$",
+    "noise": "quiet",
+    "status": "closed_permanently",
+    "hours": { "open": "17:00", "close": "22:00" }
+  },
+  {
+    "id": "r8",
+    "name": "Taco Libre",
+    "cuisine": "mexican",
+    "neighborhood": "downtown",
+    "price": "$",
+    "noise": "loud",
+    "status": "operational",
+    "hours": { "open": "11:00", "close": "23:00" }
+  }
+]

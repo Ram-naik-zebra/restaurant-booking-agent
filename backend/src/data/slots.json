@@ -1,0 +1,32 @@
+[
+  { "restaurant_id": "r1", "party_size": 2, "time": "19:00", "status": "open" },
+  { "restaurant_id": "r1", "party_size": 4, "time": "19:00", "status": "full" },
+  { "restaurant_id": "r1", "party_size": 4, "time": "19:30", "status": "open" },
+  { "restaurant_id": "r1", "party_size": 6, "time": "19:00", "status": "full" },
+  { "restaurant_id": "r1", "party_size": 6, "time": "19:30", "status": "full" },
+  { "restaurant_id": "r1", "party_size": 8, "time": "19:00", "status": "full" },
+  { "restaurant_id": "r1", "party_size": 8, "time": "19:30", "status": "full" },
+
+  { "restaurant_id": "r2", "party_size": 2, "time": "19:00", "status": "open" },
+  { "restaurant_id": "r2", "party_size": 4, "time": "19:00", "status": "open" },
+  { "restaurant_id": "r2", "party_size": 4, "time": "19:30", "status": "open" },
+
+  { "restaurant_id": "r3", "party_size": 4, "time": "19:00", "status": "full" },
+  { "restaurant_id": "r3", "party_size": 4, "time": "19:30", "status": "full" },
+  { "restaurant_id": "r3", "party_size": 6, "time": "19:00", "status": "open" },
+  { "restaurant_id": "r3", "party_size": 6, "time": "19:30", "status": "open" },
+  { "restaurant_id": "r3", "party_size": 8, "time": "19:00", "status": "full" },
+  { "restaurant_id": "r3", "party_size": 8, "time": "19:30", "status": "full" },
+
+  { "restaurant_id": "r4", "party_size": 4, "time": "19:00", "status": "open" },
+
+  { "restaurant_id": "r5", "party_size": 2, "time": "19:00", "status": "open" },
+  { "restaurant_id": "r5", "party_size": 4, "time": "19:00", "status": "open" },
+
+  { "restaurant_id": "r6", "party_size": 2, "time": "19:00", "status": "open" },
+  { "restaurant_id": "r6", "party_size": 4, "time": "19:00", "status": "open" },
+
+  { "restaurant_id": "r7", "party_size": 2, "time": "19:00", "status": "open" },
+
+  { "restaurant_id": "r8", "party_size": 4, "time": "19:00", "status": "open" }
+]
