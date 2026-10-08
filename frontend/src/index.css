@@ -1,16 +1,48 @@
+/**
+ * index.css
+ * ---------
+ * Page-wide defaults. The chat itself is styled in App.css.
+ * The document does not scroll; the conversation thread does.
+ */
 :root {
   color-scheme: light;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-family: Outfit, system-ui, -apple-system, Segoe UI, sans-serif;
+  color: #111b21;
+  background: #d1d7db;
 }
 
 * {
   box-sizing: border-box;
 }
 
+html,
+body,
+#root {
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
   margin: 0;
-  background: #f6f8fa;
-  color: #1f2328;
+  background: #d1d7db;
+}
+
+::selection {
+  background: rgba(0, 168, 132, 0.28);
+}
+
+:focus-visible {
+  outline: 2px solid #00a884;
+  outline-offset: 2px;
+}
+
+.composer textarea:focus,
+.composer textarea:focus-visible,
+.composer .send-btn:focus,
+.composer .send-btn:focus-visible,
+.approval-custom input:focus,
+.approval-custom input:focus-visible {
+  outline: none;
 }
 
 pre {
@@ -18,17 +50,32 @@ pre {
   word-break: break-word;
   margin: 4px 0 0;
   font-size: 12px;
-  background: #f6f8fa;
-  border-radius: 6px;
+  background: #f0f2f5;
+  color: #111b21;
+  border-radius: 8px;
   padding: 8px;
 }
 
-button {
+button,
+input,
+textarea {
   font-family: inherit;
+  color: inherit;
+}
+
+button {
   cursor: pointer;
 }
 
 button:disabled {
   cursor: not-allowed;
-  opacity: 0.6;
+  opacity: 0.55;
+}
+
+textarea {
+  background: transparent;
+}
+
+::placeholder {
+  color: #667781;
 }

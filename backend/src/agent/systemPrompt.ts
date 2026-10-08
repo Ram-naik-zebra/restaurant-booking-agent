@@ -1,3 +1,27 @@
+/**
+ * systemPrompt.ts
+ * ---------------
+ * This file exports a single constant: SYSTEM_PROMPT. It's just a big block
+ * of plain English text - no code logic at all - but it's one of the most
+ * important files in the app.
+ *
+ * WHAT IS A "SYSTEM PROMPT"? When we talk to the LLM, every conversation
+ * starts with one special message with role "system" (see fullMessages() in
+ * agent/loop.ts, which always puts this text first). The model treats this
+ * as its standing instructions for the whole conversation - "here is who you
+ * are and how you should behave" - as opposed to the back-and-forth "user"/
+ * "assistant"/"tool" messages that follow.
+ *
+ * INSTRUCTIONS vs GUARDRAILS: everything in this text is an "instruction" -
+ * advice we're hoping the model follows (e.g. "only call read_reviews if the
+ * user asked about ambiance"). A model COULD technically ignore any of this
+ * if it gets confused. Compare that to a "guardrail", which is a check
+ * written in actual TypeScript code (see the GUARDRAIL comments in
+ * agent/tools.ts) that the model has no way to bypass at all. We use
+ * guardrails for anything safety-critical (closed restaurants, review
+ * privacy, booking approval), and instructions for the more flexible
+ * "good judgment" behavior (which tool to try next, how to phrase things).
+ */
 export const SYSTEM_PROMPT = `You are a restaurant booking agent. You have these tools available: search_places, check_hours, check_availability, read_reviews, ask_user, book, confirm_booking, finish.
 
 Your goal: find and book ONE table that matches the user's request, but ONLY after the user explicitly approves via ask_user. Decide the next tool to call based on what the previous tool's result actually showed - do not follow a fixed script. A result may mean you skip a tool, repeat one with different arguments, or change your plan entirely.

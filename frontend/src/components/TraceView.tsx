@@ -1,61 +1,101 @@
+/**
+ * TraceView.tsx
+ * -------------
+ * The agent's work, shown as short steps (searched, checked hours, read
+ * reviews) with the raw tool payload tucked behind a disclosure. The
+ * conversation builds one of these for each stretch of tool calls.
+ */
+import { useEffect, useRef } from "react";
 import type { TraceEntry } from "../types";
+import { describeStep, placesFrom, reviewsFrom } from "./activityCopy";
 
 interface Props {
+  entries: TraceEntry[];
   trace: TraceEntry[];
+  // Closed on first paint when the agent has already moved on to a question
+  // or a final answer, so that message stays on screen. The user can still open it.
+  startClosed?: boolean;
 }
 
-function summarizeResult(result: any): { label: string; tone: "ok" | "blocked" | "skipped" | "fail" | "neutral" } {
-  if (result == null) return { label: "no result", tone: "neutral" };
-  if (result.blocked) return { label: `blocked: ${result.blocked}`, tone: "blocked" };
-  if (result.skipped) return { label: `skipped: ${result.skipped}`, tone: "skipped" };
-  if (result.success === false) return { label: `failed: ${result.error ?? "unknown error"}`, tone: "fail" };
-  if (result.success === true) return { label: "success", tone: "ok" };
-  if (result.status === "waiting_for_user") return { label: "waiting for user...", tone: "neutral" };
-  if (result.confirmed === true) return { label: "confirmed", tone: "ok" };
-  if (result.confirmed === false) return { label: "not confirmed", tone: "fail" };
-  return { label: "ok", tone: "ok" };
+function formatStamp(iso: string): string {
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) return "";
+  return date.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
 }
 
-const TONE_COLORS: Record<string, string> = {
-  ok: "#1a7f37",
-  blocked: "#9a6700",
-  skipped: "#6e7781",
-  fail: "#cf222e",
-  neutral: "#57606a"
-};
+export function TraceView({ entries, trace, startClosed = false }: Props) {
+  const detailsRef = useRef<HTMLDetailsElement>(null);
+  const seeded = useRef(false);
 
-export function TraceView({ trace }: Props) {
-  if (trace.length === 0) {
-    return <p className="trace-empty">No tool calls yet. Submit a request above to see the agent's trace here.</p>;
-  }
+  useEffect(() => {
+    if (seeded.current || !detailsRef.current) return;
+    seeded.current = true;
+    detailsRef.current.open = !startClosed;
+  }, [startClosed]);
+
+  if (entries.length === 0) return null;
+
+  const placeNames = [...new Set(entries.flatMap((entry) => placesFrom(entry).map((place) => place.name)))];
+  const summaryDetail = placeNames.slice(0, 3).join(", ");
 
   return (
-    <ol className="trace-list">
-      {trace.map((entry, i) => {
-        const summary = summarizeResult(entry.result);
-        return (
-          <li key={i} className="trace-entry">
-            <div className="trace-entry-header">
-              <span className="trace-step">{i + 1}</span>
-              <span className="trace-tool">{entry.tool}</span>
-              <span className="trace-badge" style={{ color: TONE_COLORS[summary.tone] }}>
-                {summary.label}
-              </span>
-              <span className="trace-time">{new Date(entry.timestamp).toLocaleTimeString()}</span>
-            </div>
-            <div className="trace-entry-body">
-              <div>
-                <strong>args</strong>
-                <pre>{JSON.stringify(entry.args, null, 2)}</pre>
+    <details className="activity" ref={detailsRef}>
+      <summary className="activity-summary">
+        <span className="activity-caret" aria-hidden="true" />
+        <span className="activity-summary-title">Checked {entries.length} {entries.length === 1 ? "step" : "steps"}</span>
+        {summaryDetail && <span className="activity-summary-detail">{summaryDetail}</span>}
+      </summary>
+      <ol className="activity-list">
+        {entries.map((entry, index) => {
+          const summary = describeStep(entry, trace);
+          const places = entry.tool === "search_places" ? placesFrom(entry) : [];
+          const reviews = entry.tool === "read_reviews" ? reviewsFrom(entry) : [];
+          return (
+            <li key={`${entry.tool}-${entry.timestamp}-${index}`} className="activity-step">
+              <span className={`step-dot step-dot-${summary.tone}`} aria-hidden="true" />
+              <div className="step-main">
+                <div className="step-head">
+                  <span className="step-title">{summary.title}</span>
+                  <time className="step-time" dateTime={entry.timestamp}>
+                    {formatStamp(entry.timestamp)}
+                  </time>
+                </div>
+                <p className="step-detail">{summary.detail}</p>
+                {places.length > 0 && (
+                  <ul className="place-list">
+                    {places.map((place) => (
+                      <li key={place.id} className="place-card">
+                        <span className="place-name">{place.name}</span>
+                        <span className="place-meta">{place.meta}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {reviews.length > 0 && (
+                  <ul className="review-list">
+                    {reviews.map((review, reviewIndex) => (
+                      <li key={`${reviewIndex}-${review}`}>{review}</li>
+                    ))}
+                  </ul>
+                )}
+                <details className="raw-trace">
+                  <summary>Raw tool data · {entry.tool}</summary>
+                  <div className="raw-grid">
+                    <div>
+                      <span>args</span>
+                      <pre>{JSON.stringify(entry.args, null, 2)}</pre>
+                    </div>
+                    <div>
+                      <span>result</span>
+                      <pre>{JSON.stringify(entry.result, null, 2)}</pre>
+                    </div>
+                  </div>
+                </details>
               </div>
-              <div>
-                <strong>result</strong>
-                <pre>{JSON.stringify(entry.result, null, 2)}</pre>
-              </div>
-            </div>
-          </li>
-        );
-      })}
-    </ol>
+            </li>
+          );
+        })}
+      </ol>
+    </details>
   );
 }
